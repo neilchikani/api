@@ -1,0 +1,9 @@
+{
+  "seats": [
+    {
+      "gold" : "4x5",
+      "silver" : "5x5",
+      "bronze" : "8x8"
+    }
+  ]
+}
