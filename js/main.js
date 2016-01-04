@@ -84,5 +84,6 @@ myApp.controller('userList', function ($scope, $http) {
     
     $http.get("http://localhost:3000/user").success(function(response) {
          $scope.user = response;
+         
     });
 });
