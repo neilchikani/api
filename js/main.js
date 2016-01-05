@@ -1,23 +1,23 @@
  
 
 
-var myApp = angular.module("myApp", ['textAngular','ngRoute']);
-myApp.directive('file', function () {
-    return {
-        scope: {
-            file: '='
-        },
-        link: function (scope, el, attrs) {
-            el.bind('change', function (event) {
-                console.log(event);
-                var file = event.target.files[0];
-                scope.file = file ? file : undefined;
-                scope.$apply();
-            });
-        }
-    };
-});
-myApp.config(['$routeProvider',
+    var myApp = angular.module("myApp", ['textAngular','ngRoute','ui-notification']);
+    myApp.directive('file', function () {
+        return {
+            scope: {
+                file: '='
+            },
+            link: function (scope, el, attrs) {
+
+                el.bind('change', function (event) {
+                    var file = event.target.files[0];
+                    scope.file = file ? file : undefined;
+                    scope.$apply();
+                });
+            }
+        };
+    });
+    myApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/admin', {
@@ -33,13 +33,13 @@ myApp.config(['$routeProvider',
 
             });
     }]);
-myApp.controller('admin', function admin($scope, $http) {
-     $scope.htmlContent = 'Hello';
-
-    $scope.submit = function(){
+    myApp.controller('admin', function admin($scope, $http, Notification) {
+    $scope.htmlContent = 'Hello';
+    console.log($('input[type="file"]'));
+    $scope.submitForm = function(){
         
         
-        if($scope.email && $scope.password){
+        if($scope.email && $scope.password && $scope.file && $scope.htmlContent ){
              
              $http({
                 method: 'POST',
@@ -58,18 +58,29 @@ myApp.controller('admin', function admin($scope, $http) {
                     angular.forEach(data, function (value, key) {
                         formData.append(key, value);
                     });
-                    console.log(formData);
                     var headers = headersGetter();
                     delete headers['Content-Type'];
-
                     return formData;
                 }
             })
             .success(function (data) {
-                alert("data has been submitted");
+                Notification.success({
+                    message: 'Data has been submitted succesfully', 
+                    positionY: 'bottom', 
+                    positionX: 'right'
+                });
+                 
+                $scope.email = '';               
+                $scope.password = '';
+                $scope.htmlContent = '';
+                $('input[type="file"]').val(null);
             })
             .error(function (data, status) {
-                alert("error occured");
+                Notification.error({
+                    message: 'Something went wrong.', 
+                    positionY: 'bottom', 
+                    positionX: 'right'
+                });
             });
              
             
@@ -81,9 +92,8 @@ myApp.controller('admin', function admin($scope, $http) {
 });
 myApp.controller('userList', function ($scope, $http) {
     $scope.url = "http://localhost:3000/";
-    
     $http.get("http://localhost:3000/user").success(function(response) {
          $scope.user = response;
-         
+
     });
 });

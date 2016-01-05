@@ -1,9 +1,9 @@
 <h2> Add Student </h2>
-<form>
+<form name="myForm" ng-submit="submitForm()">
     <div class="col-md-12">
         <div class="form-group">
             <label for="email">Email address</label>
-            <input ng-model="email" type="text" class="form-control" id="email" placeholder="Enter email">
+            <input name="email" ng-model="email" type="text" class="form-control" id="email" placeholder="Enter email">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
@@ -17,8 +17,8 @@
             <label for="password">Address</label>
             <div text-angular ng-model="htmlContent" name="demo-editor" ta-text-editor-class="border-around container" ta-html-editor-class="border-around"></div>
         </div>
+         <button class="btn btn-default" type="submit">Submit</button>
          
-        <input ng-click="submit()" type="submit" class="btn btn-default">
 
     </div>
 </form>
