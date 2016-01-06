@@ -32,14 +32,16 @@
                 templateUrl: 'profile.html',
                 controller: 'profile'
             }).
+            when('/edit/:userid', {
+                templateUrl: 'edit.html',
+                controller: 'edit'
+            }).
             otherwise({
-                redirectTo: '/'
+                redirectTo: '/admin'
 
             });
     }]);
     myApp.controller('admin', function admin($scope, $http, Notification) {
-    $scope.htmlContent = 'Hello';
-     
     $scope.submitForm = function(){
         
         
@@ -94,7 +96,7 @@
     };
 
 });
-myApp.controller('userList', function ($scope, $http, Notification,$filter) {
+myApp.controller('userList', function ($scope, $http, Notification,$filter,$route,$timeout) {
     $scope.url = "http://localhost:3000/";
     $http.get("http://localhost:3000/user").success(function(response) {
          Notification.success({
@@ -106,8 +108,38 @@ myApp.controller('userList', function ($scope, $http, Notification,$filter) {
          // $scope.user = response;
 
     });
+    $scope.delete = function(id){
+        alert(id);
+        $http({
+            url: "http://localhost:3000/profile", 
+            method: "DELETE",
+            params: {user_id: id}
+        }).then(function successCallback(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+            Notification.success({
+                message: 'Data has been deleted successfully', 
+                positionY: 'bottom', 
+                positionX: 'right'
+            });
+            $timeout(function() {
+                $route.reload();
+            }, 1000);
+           
+            
+            
+             
+            // $scope.user = response.data;
+            // console.log(response.data;);
+          }, function errorCallback(response) {
+             
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+          });
+    }
 });
-myApp.controller('profile', function ($scope, $http,$routeParams,Notification) {
+myApp.controller('profile', function ($scope, $http,$routeParams,Notification,$route,$timeout) {
+     
     $scope.profile = "Hellooo";
     $scope.url = "http://localhost:3000/";
     $http({
@@ -130,4 +162,55 @@ myApp.controller('profile', function ($scope, $http,$routeParams,Notification) {
         // or server returns response with an error status.
       });
 
+});
+myApp.controller('edit', function ($scope, $http,$routeParams,Notification,$route,$window,$location,$timeout) {
+    $scope.url = "http://localhost:3000/";
+
+    $http({
+        url: "http://localhost:3000/profile", 
+        method: "GET",
+        params: {user_id: $routeParams.userid}
+         
+    }).then(function successCallback(response) {
+        $scope.email = response.data[0].Fname;
+        $scope.password = response.data[0].Lname;
+        $scope.htmlContent = response.data[0].Description;
+    }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+    $scope.editForm = function(){
+        $http({
+            url: "http://localhost:3000/profile", 
+            method: "PUT",
+            data: {
+                email : $scope.email,
+                password : $scope.password,
+                richText : $scope.htmlContent
+            },
+            params: {user_id: $routeParams.userid}
+        }).then(function successCallback(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+            Notification.success({
+                message: 'Data has been updated successfully', 
+                positionY: 'bottom', 
+                positionX: 'right'
+            });
+            $timeout(function() {
+                $location.path( "/user" );
+            }, 1000);
+           
+            
+            
+             
+            // $scope.user = response.data;
+            // console.log(response.data;);
+          }, function errorCallback(response) {
+             
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+          });
+    }
+     
 });

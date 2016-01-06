@@ -21,8 +21,14 @@
 	        <div class="col-md-3">
         		{{ x.Lname }}
 	        </div>
-	         <div class="col-md-3" data-ng-bind-html="x.Description">
+         	<div class="col-md-2" data-ng-bind-html="x.Description">
         		 
+	        </div>
+			<div class="col-md-1">
+        		 <a class="btn btn-danger" href="#/edit/{{ x.id }}"> Edit </a>
+	        </div>
+	        <div class="col-md-1">
+        		 <a class="btn btn-danger" ng-click="delete(x.id)"> Delete </a>
 	        </div>
 	        <!-- <div class="col-md-3">
         		<img width="25" height="25" src="{{ url }}{{ x.path }}" title="image">
