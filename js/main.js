@@ -28,6 +28,10 @@
                 templateUrl: 'template.html',
                 controller: 'userList'
             }).
+            when('/profile/:userid', {
+                templateUrl: 'profile.html',
+                controller: 'profile'
+            }).
             otherwise({
                 redirectTo: '/'
 
@@ -35,7 +39,7 @@
     }]);
     myApp.controller('admin', function admin($scope, $http, Notification) {
     $scope.htmlContent = 'Hello';
-    console.log($('input[type="file"]'));
+     
     $scope.submitForm = function(){
         
         
@@ -96,4 +100,19 @@ myApp.controller('userList', function ($scope, $http) {
          $scope.user = response;
 
     });
+    $scope.profile = function(id){
+        alert(id);
+    }
+});
+myApp.controller('profile', function ($scope, $http) {
+    $scope.profile = "Hellooo";
+    $http.get("http://localhost:3000/profile/").success(function(response) {
+         $scope.user = response;
+
+    });
+    $http({
+    url: "http://localhost:3000/profile/", 
+    method: "GET",
+    params: {user_id: user.id}
+ });
 });
