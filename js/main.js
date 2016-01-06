@@ -94,14 +94,20 @@
     };
 
 });
-myApp.controller('userList', function ($scope, $http) {
+myApp.controller('userList', function ($scope, $http, Notification,$filter) {
     $scope.url = "http://localhost:3000/";
     $http.get("http://localhost:3000/user").success(function(response) {
-         $scope.user = response;
+         Notification.success({
+            message: 'Welcome to User area', 
+            positionY: 'top', 
+            positionX: 'right'
+        });
+         $scope.user = $filter('orderBy')(response, "Fname");
+         // $scope.user = response;
 
     });
 });
-myApp.controller('profile', function ($scope, $http,$routeParams) {
+myApp.controller('profile', function ($scope, $http,$routeParams,Notification) {
     $scope.profile = "Hellooo";
     $scope.url = "http://localhost:3000/";
     $http({
@@ -112,6 +118,11 @@ myApp.controller('profile', function ($scope, $http,$routeParams) {
     }).then(function successCallback(response) {
         // this callback will be called asynchronously
         // when the response is available
+        Notification.success({
+            message: 'Welcome to User Profile page', 
+            positionY: 'top', 
+            positionX: 'right'
+        });
         $scope.user = response.data;
         // console.log(response.data;);
       }, function errorCallback(response) {
