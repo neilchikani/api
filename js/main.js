@@ -100,19 +100,23 @@ myApp.controller('userList', function ($scope, $http) {
          $scope.user = response;
 
     });
-    $scope.profile = function(id){
-        alert(id);
-    }
 });
-myApp.controller('profile', function ($scope, $http) {
+myApp.controller('profile', function ($scope, $http,$routeParams) {
     $scope.profile = "Hellooo";
-    $http.get("http://localhost:3000/profile/").success(function(response) {
-         $scope.user = response;
-
-    });
+    $scope.url = "http://localhost:3000/";
     $http({
-    url: "http://localhost:3000/profile/", 
-    method: "GET",
-    params: {user_id: user.id}
- });
+        url: "http://localhost:3000/profile", 
+        method: "GET",
+        params: {user_id: $routeParams.userid}
+         
+    }).then(function successCallback(response) {
+        // this callback will be called asynchronously
+        // when the response is available
+        $scope.user = response.data;
+        // console.log(response.data;);
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+
 });

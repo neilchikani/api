@@ -1,13 +1,23 @@
 <h2> Profile List </h2>
- 
+ 	<div class="col-md-12">
+ 		<a class="btn btn-primary" href="#/user"> Back to User section </a>
+	</div>
+	<br><br>
     <div class="col-md-12">
-        <div class="col-md-3 ">
-            <h1> Name </h1>
-        </div>
-        <div class="clearfix"></div>
-        
-        <br>
-        <div class="clearfix"></div>
-         {{ profile }}
+       <div class="main" ng-repeat="x in user">
+	        <div class="col-md-12">
+				{{ x.Fname }}
+	        </div>
+	        <div class="col-md-12">
+        		{{ x.Lname }}
+	        </div>
+	         <div class="col-md-12" data-ng-bind-html="x.Description">
+        		 
+	        </div>
+	        <div class="col-md-12">
+        		<img class="img-responsive"  src="{{ url }}{{ x.path }}" title="image">
+	        </div>
+			<div class="clearfix"></div>
+		</div>
     </div>
  

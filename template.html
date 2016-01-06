@@ -1,33 +1,32 @@
 <h2> User List </h2>
  
-    <div class="col-md-12">
-		<div class="col-md-3 ">
-			<h1> First Name </h1>
-        </div>
-        <div class="col-md-3">
-    		<h1> Last Name </h1>
-        </div>
-        <div class="clearfix"></div>
-        
-        <br>
-        <div class="clearfix"></div>
-        <div class="main" ng-repeat="x in user">
-	        <a ng-click="profile(x.id)" href="#/profile/{{x.id}}" style="display:block;">
-					<div class="col-md-3">
-						{{ x.Fname }}
-			        </div>
-			        <div class="col-md-3">
-		        		{{ x.Lname }}
-			        </div>
-			         <div class="col-md-3" data-ng-bind-html="x.Description">
-		        		 
-			        </div>
-			        <!-- <div class="col-md-3">
-		        		<img width="25" height="25" src="{{ url }}{{ x.path }}" title="image">
-			        </div> -->
-					<div class="clearfix"></div>
-		    	
-	        </a>
-	    </div>
-	</div>
+<div class="col-md-12">
+	<div class="col-md-3 ">
+		<h1> First Name </h1>
+    </div>
+    <div class="col-md-3">
+		<h1> Last Name </h1>
+    </div>
+    <div class="clearfix"></div>
+    
+     
+    <div class="clearfix"></div>
+    <div class="main" ng-repeat="x in user">
+        <a href="#/profile/{{x.id}}" style="display:block;">
+			<div class="col-md-3">
+				{{ x.Fname }}
+	        </div>
+	        <div class="col-md-3">
+        		{{ x.Lname }}
+	        </div>
+	         <div class="col-md-3" data-ng-bind-html="x.Description">
+        		 
+	        </div>
+	        <!-- <div class="col-md-3">
+        		<img width="25" height="25" src="{{ url }}{{ x.path }}" title="image">
+	        </div> -->
+			<div class="clearfix"></div>
+     	</a>
+    </div>
+</div>
  
