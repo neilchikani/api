@@ -8,7 +8,6 @@
                 file: '='
             },
             link: function (scope, el, attrs) {
-
                 el.bind('change', function (event) {
                     var file = event.target.files[0];
                     scope.file = file ? file : undefined;
@@ -56,7 +55,9 @@
 
     myApp.controller('admin', function admin($scope, $http, Notification) {
 
+
     $scope.submitForm = function(){
+
         
         
         if($scope.email && $scope.password && $scope.file && $scope.htmlContent ){
@@ -118,7 +119,10 @@ myApp.controller('userList', function ($scope, $http, Notification,$filter,$rout
             positionY: 'top', 
             positionX: 'right'
         });
-         $scope.user = $filter('orderBy')(response, "Fname");
+        angular.forEach(response, function(value, key) {
+            console.log(key);
+        });
+        $scope.user = $filter('orderBy')(response, "Fname");
          // $scope.user = response;
 
     });
@@ -178,7 +182,7 @@ myApp.controller('profile', function ($scope, $http,$routeParams,Notification,$r
 });
 myApp.controller('edit', function ($scope, $http,$routeParams,Notification,$route,$window,$location,$timeout) {
     $scope.url = "http://localhost:3000/";
-
+    console.log(Object.getPrototypeOf($route));
     $http({
         url: "http://localhost:3000/profile", 
         method: "GET",
