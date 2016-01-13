@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
+<title> Welcome to my angular application </title>
 <link rel="stylesheet" href = "css/bootstrap.min.css">
 <link rel="stylesheet" href = "css/angular-ui-notification.min.css">
 <style type="text/css">
@@ -31,8 +32,8 @@
 <script src='js/textAngular.min.js'></script>
 <script src='js/angular-ui-notification.min.js'></script>
 <body>
-	<div ng-app="myApp" class="container">
-	    <div data-ng-view></div>
+	<div ng-app="myApp" class="container" ng-init="test={ name:'nilay', age:20 }">
+		<student-directive> student-directive>
 	</div>
 <script src= "js/main.js"></script>
 

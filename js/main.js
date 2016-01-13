@@ -17,6 +17,16 @@
             }
         };
     });
+    myApp.directive('studentDirective', function () {
+        return {
+            template: " Hello",
+             
+            restrict: 'E',
+            controller: function ($scope) {
+                console.log($scope);
+            }
+        }
+    });
     myApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
@@ -38,10 +48,14 @@
             }).
             otherwise({
                 redirectTo: '/admin'
-
             });
     }]);
+    // myApp.controller('main', function admin($scope, $http, Notification) {
+    //     // console.log('Hey')
+    // });
+
     myApp.controller('admin', function admin($scope, $http, Notification) {
+
     $scope.submitForm = function(){
         
         
@@ -95,7 +109,7 @@
         }
     };
 
-});
+    });
 myApp.controller('userList', function ($scope, $http, Notification,$filter,$route,$timeout) {
     $scope.url = "http://localhost:3000/";
     $http.get("http://localhost:3000/user").success(function(response) {
@@ -109,7 +123,6 @@ myApp.controller('userList', function ($scope, $http, Notification,$filter,$rout
 
     });
     $scope.delete = function(id){
-        alert(id);
         $http({
             url: "http://localhost:3000/profile", 
             method: "DELETE",
